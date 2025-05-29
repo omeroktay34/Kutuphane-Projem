@@ -1,0 +1,332 @@
+@model List<kutuphane.Models.PopularBookViewModel>
+
+<style>
+    :root {
+        --primary: #8a5f36;
+        --secondary: #f9f5f1;
+        --accent: #d4a373;
+        --text-dark: #3a2c1b;
+        --text-light: #f9f5f1;
+    }
+    
+    body {
+        background-color: var(--secondary);
+    
+    }
+    
+    .book-card {
+        border: none;
+        border-radius: 12px;
+        padding: 0;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 6px 15px rgba(138, 95, 54, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        transform-style: preserve-3d;
+    }
+    
+    .book-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(138, 95, 54, 0.2);
+    }
+    
+    .book-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .book-card:hover::before {
+        opacity: 1;
+    }
+    
+    .book-cover {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        border-bottom: 1px solid rgba(138, 95, 54, 0.1);
+    }
+    
+    .book-card:hover .book-cover {
+        transform: scale(1.05);
+    }
+    
+    
+    .generated-cover {
+        width: 100%;
+        height: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #8a5f36 0%, #d4a373 100%);
+        color: white;
+    }
+    
+    .generated-cover::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        transform: rotate(30deg);
+    }
+    
+    .generated-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        z-index: 1;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .generated-author {
+        font-size: 1rem;
+        opacity: 0.9;
+        z-index: 1;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .generated-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        opacity: 0.8;
+        z-index: 1;
+    }
+    
+    .book-info {
+        padding: 20px;
+        background: white;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .book-title {
+        font-weight: 700;
+        color: var(--text-dark);
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        transition: color 0.3s ease;
+    }
+    
+    .book-card:hover .book-title {
+        color: var(--primary);
+    }
+    
+    .book-author {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+    
+    .favorite-count {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(138, 95, 54, 0.1);
+        color: var(--primary);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .action-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px dashed rgba(138, 95, 54, 0.2);
+    }
+    
+    .action-link {
+        position: relative;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        padding-bottom: 3px;
+    }
+    
+    .action-link:hover {
+        color: var(--accent);
+    }
+    
+    .action-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent);
+        transition: width 0.3s ease;
+    }
+    
+    .action-link:hover::after {
+        width: 100%;
+    }
+    
+    .section-title {
+        color: var(--primary);
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), transparent);
+        border-radius: 3px;
+    }
+    
+   
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 25px;
+        padding: 10px;
+    }
+    
+   
+    @@media (max-width: 768px) {
+        .books-grid {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .book-cover, .generated-cover {
+            height: 220px;
+        }
+        
+        .generated-title {
+            font-size: 1.2rem;
+        }
+        
+        .generated-author {
+            font-size: 0.9rem;
+        }
+    }
+    
+   
+    @@keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .book-card {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .book-card:nth-child(2) {
+        animation-delay: 0.5s;
+    }
+    
+    .book-card:nth-child(3) {
+        animation-delay: 1s;
+    }
+    
+    .book-card:nth-child(4) {
+        animation-delay: 1.5s;
+    }
+    
+   
+    .book-card {
+        cursor: pointer;
+    }
+    
+  
+    .favorite-count::before {
+        content: '❤';
+        margin-right: 5px;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container mx-auto px-4 py-8">
+    <h2 class="section-title">Popüler Kitaplar</h2>
+    
+    <div class="books-grid">
+        @foreach (var item in Model)
+        {
+            <div class="book-card">
+                @if (item.Book.CoverImage != null)
+                {
+                    var base64Image = "data:image/jpeg;base64," + Convert.ToBase64String(item.Book.CoverImage);
+                    <img src="@base64Image" alt="@item.Book.Title" class="book-cover" />
+                }
+                else
+                {
+                    <div class="generated-cover">
+                        <div class="fas fa-book generated-icon"></div>
+                        <div class="generated-title">@item.Book.Title</div>
+                        <div class="generated-author">@item.Book.Author</div>
+                    </div>
+                }
+                
+                <div class="book-info">
+                    <h3 class="book-title">@item.Book.Title</h3>
+                    <p class="book-author">@item.Book.Author</p>
+                    
+                    <span class="favorite-count">@item.FavoriteCount</span>
+                    
+                    <div class="action-links">
+                        <a href="@Url.Action("BookDetails", "Home", new { id = item.Book.Id })" 
+                           class="action-link"
+                           onclick="event.stopPropagation();">
+                            Detaylar
+                        </a>
+                        
+                        <a href="@Url.Action("ReadBook", "Home", new { id = item.Book.Id })" 
+                           class="action-link">
+                            Oku
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+   
+    document.querySelectorAll('.book-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const link = this.querySelector('a');
+            if (link) {
+                window.location.href = link.href;
+            }
+        });
+    });
+
+
+    document.querySelectorAll('.generated-icon').forEach(icon => {
+        const title = icon.closest('.book-card').querySelector('.book-title').textContent;
+        const icons = <i class="fas fa-book"></i>>
+        const hash = Array.from(title).reduce((hash, char) => char.charCodeAt(0) + (hash << 6) + (hash << 16) - hash, 0);
+        const iconIndex = Math.abs(hash) % icons.length;
+        icon.textContent = icons[iconIndex];
+    });
+</script>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<kutuphane.Models.CategoryModel>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Kategoriler
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+        @foreach (var category in Model)
+        {
+            @if (category.SubCategories != null && category.SubCategories.Any())
+            {
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="@Url.Action("Library", "Home", new { categoryId = category.Id })">
+                        @category.Name
+                        <i class="fas fa-chevron-right float-end"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu-menu">
+                        @foreach (var subCategory in category.SubCategories)
+                        {
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Library", "Home", new { categoryId = subCategory.Id })">
+                                    @subCategory.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="dropdown-item" href="@Url.Action("Library", "Home", new { categoryId = category.Id })">
+                        @category.Name
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</li>

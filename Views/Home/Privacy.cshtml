@@ -1,0 +1,344 @@
+﻿@{
+    ViewData["Title"] = "Gizlilik Politikası";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-header bg-library text-white">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-user-shield fa-2x me-3"></i>
+                        <h1 class="mb-0">@ViewData["Title"]</h1>
+                    </div>
+                    <p class="mb-0 mt-2"><small>Son Güncelleme: @DateTime.Now.ToString("dd/MM/yyyy")</small></p>
+                </div>
+                
+                <div class="card-body privacy-policy">
+                    <section class="mb-5">
+                        <h2 class="text-library"><i class="fas fa-book-open me-2"></i> Kütüphanemiz ve Kişisel Verilerin Korunması</h2>
+                        <p>Kütüphanemiz, üyelerimizin ve ziyaretçilerimizin kişisel verilerinin korunmasına büyük önem vermektedir. Bu gizlilik politikası, [Kütüphane Adı] tarafından hangi bilgilerin toplandığını, bu bilgilerin nasıl kullanıldığını ve korunduğunu açıklamaktadır.</p>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-info-circle me-2"></i> 1. Toplanan Bilgiler</h3>
+                        
+                        <h4><i class="fas fa-user-plus me-2"></i> 1.1 Üyelik İşlemleri Sırasında</h4>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-library me-2"></i> Ad ve soyad bilgileri</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-library me-2"></i> TC Kimlik Numarası (yasal zorunluluklar çerçevesinde)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-library me-2"></i> İletişim bilgileri (e-posta adresi, telefon numarası)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-library me-2"></i> Posta adresi (kargo ile kitap gönderimi için)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-library me-2"></i> Doğum tarihi (yaş sınırlı yayınlar için)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-library me-2"></i> Akademik bilgiler (öğrenci/akademisyen üyeliklerinde)</li>
+                        </ul>
+                        
+                        <h4><i class="fas fa-chart-line me-2"></i> 1.2 Kullanım Verileri</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-book text-library me-2"></i> Ödünç alınan kitapların kaydı</li>
+                            <li class="list-group-item"><i class="fas fa-calendar-check text-library me-2"></i> Rezerve edilen yayınlar</li>
+                            <li class="list-group-item"><i class="fas fa-heart text-library me-2"></i> Okuma tercihleri ve ilgi alanları</li>
+                            <li class="list-group-item"><i class="fas fa-laptop text-library me-2"></i> Web sitemizde geçirilen süre</li>
+                            <li class="list-group-item"><i class="fas fa-search text-library me-2"></i> Arama geçmişi (katalog taramaları)</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-tasks me-2"></i> 2. Verilerin Kullanım Amacı</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-users text-library me-2"></i> Üyelik Yönetimi</h5>
+                                        <p class="card-text">Üyelik işlemleri ve kütüphane hizmetlerinin sağlanması için kullanılmaktadır.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-exchange-alt text-library me-2"></i> Ödünç İşlemleri</h5>
+                                        <p class="card-text">Kitap ödünç alma ve iade işlemlerinin takibi için gereklidir.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-bell text-library me-2"></i> Bilgilendirme</h5>
+                                        <p class="card-text">Yeni yayınlar ve etkinlikler hakkında bilgilendirme yapmak için kullanılır.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-chart-pie text-library me-2"></i> İstatistikler</h5>
+                                        <p class="card-text">Kütüphane kullanım istatistiklerinin oluşturulması için kullanılır.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-share-alt me-2"></i> 3. Veri Paylaşımı ve Saklama</h3>
+                        
+                        <div class="alert alert-library">
+                            <h5><i class="fas fa-exclamation-triangle me-2"></i> Önemli:</h5>
+                            <p>Kişisel verileriniz yalnızca yasal zorunluluklar ve hizmetlerimizin sağlanması için gerekli olduğunda paylaşılmaktadır.</p>
+                        </div>
+                        
+                        <h4><i class="fas fa-building me-2"></i> 3.1 Üçüncü Şahıslarla Paylaşım</h4>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item">
+                                <i class="fas fa-gavel text-library me-2"></i>
+                                <strong>Mahkeme kararı</strong> veya yasal zorunluluklar gereği
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-book-reader text-library me-2"></i>
+                                <strong>Kitap tedarikçileri</strong> ile sınırlı bilgi paylaşımı
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-truck text-library me-2"></i>
+                                <strong>Kargo şirketleri</strong> (kitap gönderimi için)
+                            </li>
+                        </ul>
+                        
+                        <h4><i class="fas fa-database me-2"></i> 3.2 Veri Saklama Süreleri</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="bg-library text-white">
+                                    <tr>
+                                        <th>Veri Türü</th>
+                                        <th>Saklama Süresi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Üyelik bilgileri</td>
+                                        <td>Üyelik süresince + 10 yıl</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ödünç alma kayıtları</td>
+                                        <td>5 yıl</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fatura bilgileri</td>
+                                        <td>10 yıl (Vergi Kanunu gereği)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+               
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-cookie-bite me-2"></i> 4. Çerez Politikası</h3>
+                        <p>Kütüphanemizin web sitesi, kullanıcı deneyimini iyileştirmek için çerezler kullanmaktadır:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-header bg-library text-white">
+                                        <i class="fas fa-exclamation-circle me-2"></i> Zorunlu Çerezler
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li>Oturum yönetimi</li>
+                                            <li>Güvenlik önlemleri</li>
+                                            <li>Sepet işlevselliği</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-header bg-library text-white">
+                                        <i class="fas fa-chart-bar me-2"></i> Analiz Çerezleri
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li>Google Analytics</li>
+                                            <li>Kullanım istatistikleri</li>
+                                            <li>Performans izleme</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-shield-alt me-2"></i> 5. Güvenlik Önlemleri</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-library">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-lock fa-3x text-library mb-3"></i>
+                                        <h5>Veri Şifreleme</h5>
+                                        <p>SSL sertifikası ile güvenli veri transferi</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-library">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-user-lock fa-3x text-library mb-3"></i>
+                                        <h5>Sınırlı Erişim</h5>
+                                        <p>Yetkili personel dışında erişim yok</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-library">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-fire-extinguisher fa-3x text-library mb-3"></i>
+                                        <h5>Fiziksel Güvenlik</h5>
+                                        <p>Arşivlerimiz korumalı alanlarda</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-balance-scale me-2"></i> 6. Haklarınız</h3>
+                        <p>5651 sayılı Kanun ve KVKK kapsamında sahip olduğunuz haklar:</p>
+                        
+                        <div class="accordion" id="rightsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                        <i class="fas fa-info-circle text-library me-2"></i> Bilgi Edinme Hakkı
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                                    <div class="accordion-body">
+                                        Hakkınızda işlenen veriler hakkında bilgi talep edebilirsiniz.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                        <i class="fas fa-edit text-library me-2"></i> Düzeltme Talebi
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                                    <div class="accordion-body">
+                                        Yanlış veya eksik verilerinizi düzeltebilirsiniz.
+                                    </div>
+                                </div>
+                            </div>
+                 
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-child me-2"></i> 7. Çocukların Gizliliği</h3>
+                        <div class="alert alert-warning">
+                            <h5><i class="fas fa-exclamation-circle me-2"></i> 16 Yaş Altı Kullanıcılar</h5>
+                            <ul>
+                                <li>Velilerden açık onay alınmaktadır</li>
+                                <li>Çocuklara özel güvenlik filtreleri uygulanır</li>
+                                <li>Eğitici içerikler dışında veri toplanmaz</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-sync-alt me-2"></i> 8. Politika Değişiklikleri</h3>
+                        <p>Bu politika, kütüphane yönetimi tarafından güncellenebilir. Önemli değişikliklerde:</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-globe text-library me-2"></i> Web sitemizde duyuru yapılacaktır</li>
+                            <li class="list-group-item"><i class="fas fa-envelope text-library me-2"></i> Aktif üyelere e-posta gönderilecektir</li>
+                            <li class="list-group-item"><i class="fas fa-bullhorn text-library me-2"></i> Kütüphane girişinde bilgilendirme yapılacaktır</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="text-library"><i class="fas fa-phone-alt me-2"></i> 9. İletişim</h3>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5><i class="fas fa-university text-library me-2"></i> Kütüphane Bilgileri</h5>
+                                        <ul class="list-unstyled">
+                                            <li><strong>Adı:</strong> Ömer</li>
+                                            <li><strong>Adres:</strong> İstanbul</li>
+                                            <li><strong>Telefon:</strong> 555 123 45 67</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5><i class="fas fa-user-tie text-library me-2"></i> Veri Sorumlusu</h5>
+                                        <ul class="list-unstyled">
+                                            <li><strong>Adı:</strong> Ömer OKTAY</li>
+                                            <li><strong>E-posta:</strong> <a href="mailto:[E-posta]">oktaykutuphanesi@gmail.com</a></li>
+                                            <li><strong>Telefon:</strong> 555 123 45 67</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="text-center mt-5">
+                        <div class="card border-library">
+                            <div class="card-body">
+                                <h4 class="text-library"><i class="fas fa-calendar-check me-2"></i> 10. Yürürlük</h4>
+                                <p>Bu politika @DateTime.Now.ToString("dd/MM/yyyy") tarihinden itibaren geçerlidir.</p>
+                                <div class="alert alert-library">
+                                    <p class="mb-0"><i class="fas fa-quote-left me-2"></i> "Bilgi özgür olmalıdır, ancak mahremiyet korunmalıdır."</p>
+                                    <footer class="blockquote-footer mt-1">Kütüphane Yönetimi</footer>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-library {
+        background-color: #8a5f36;
+    }
+    
+    .text-library {
+        color: #8a5f36;
+    }
+    
+    .border-library {
+        border-color: #8a5f36 !important;
+    }
+    
+    .alert-library {
+        background-color: rgba(138, 95, 54, 0.1);
+        border-left: 4px solid #8a5f36;
+    }
+    
+    .privacy-policy h2, .privacy-policy h3, .privacy-policy h4 {
+        font-weight: 600;
+    }
+    
+    .privacy-policy section {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1.5rem;
+    }
+    
+    .privacy-policy ul {
+        padding-left: 1.5rem;
+    }
+    
+    .card-header {
+        border-radius: 0 !important;
+    }
+    
+    .list-group-item {
+        border-left: none;
+        border-right: none;
+    }
+</style>

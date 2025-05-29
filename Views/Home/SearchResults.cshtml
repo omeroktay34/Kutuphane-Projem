@@ -1,0 +1,46 @@
+@model List<kutuphane.Models.BookModel>
+
+@{
+    ViewBag.Title = "Arama Sonuçları";
+}
+
+<h2>“@ViewBag.SearchQuery” için Arama Sonuçları</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var book in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    @if (book.CoverImage != null)
+                    {
+                        var base64 = Convert.ToBase64String(book.CoverImage);
+                        <img src="data:image/jpeg;base64,@base64" class="card-img-top" style="height: 300px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 300px;">
+                            <span>Kapak Yok</span>
+                        </div>
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Title</h5>
+                        <p class="card-text"><strong>Yazar:</strong> @book.Author</p>
+                        <p class="card-text"><strong>Sayfa Sayısı:</strong> @book.PageCount</p>
+                        <a asp-controller="Home" asp-action="ReadBook" asp-route-bookId="@book.Id" class="btn btn-primary">
+                            Kitabı Oku
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-warning mt-4">
+        “@ViewBag.SearchQuery” için kitap bulunamadı.
+    </div>
+}

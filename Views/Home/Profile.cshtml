@@ -1,0 +1,268 @@
+@model kutuphane.Models.UserModel
+
+<style>
+    :root {
+        --primary: #8a5f36;
+        --secondary: #f9f5f1;
+        --accent: #d4b996;
+        --dark: #3a2c1b;
+        --light: #fff;
+    }
+
+    .profile-card {
+        max-width: 700px;
+        margin: 3rem auto;
+        display: flex;
+        background: var(--light);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(138, 95, 54, 0.2);
+        position: relative;
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .profile-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .profile-left {
+        width: 40%;
+        background: linear-gradient(135deg, var(--primary), var(--dark));
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-left::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+
+    .profile-left::after {
+        content: '';
+        position: absolute;
+        bottom: -80px;
+        left: -30px;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+
+    .profile-img {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid var(--accent);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+        transition: all 0.5s ease;
+    }
+
+    .profile-img:hover {
+        transform: scale(1.05) rotate(5deg);
+    }
+
+    .profile-right {
+        width: 60%;
+        padding: 3rem;
+        position: relative;
+    }
+
+    .profile-title {
+        color: var(--primary);
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .profile-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--accent);
+    }
+
+    .profile-details {
+        margin-top: 2rem;
+    }
+
+    .detail-item {
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-left: 30px;
+        animation: slideIn 0.6s ease forwards;
+        opacity: 0;
+    }
+
+    .detail-item:nth-child(1) { animation-delay: 0.1s; }
+    .detail-item:nth-child(2) { animation-delay: 0.2s; }
+    .detail-item:nth-child(3) { animation-delay: 0.3s; }
+    .detail-item:nth-child(4) { animation-delay: 0.4s; }
+
+    .detail-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 15px;
+        height: 15px;
+        background: var(--accent);
+        border-radius: 3px;
+        transform: rotate(45deg);
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .detail-value {
+        color: var(--dark);
+        font-size: 1.1rem;
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 3rem;
+    }
+
+    .profile-btn {
+        padding: 0.8rem 1.8rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .profile-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: var(--primary);
+        transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: -1;
+    }
+
+    .profile-btn:hover::before {
+        width: 100%;
+    }
+
+    .btn-edit {
+        background: var(--primary);
+        color: white;
+    }
+
+    .btn-edit:hover {
+        color: white;
+        box-shadow: 0 10px 20px rgba(138, 95, 54, 0.3);
+    }
+
+    .btn-account {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+    }
+
+    .btn-account:hover {
+        color: white;
+        border-color: var(--primary);
+    }
+
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .profile-card {
+            flex-direction: column;
+        }
+        
+        .profile-left, .profile-right {
+            width: 100%;
+        }
+        
+        .profile-left {
+            padding: 2rem 1rem;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+        }
+        
+        .profile-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="profile-card">
+    <div class="profile-left">
+        <img src="data:image/png;base64,@(Model.ProfileImage != null ? Convert.ToBase64String(Model.ProfileImage) : "")"
+             alt="Profil Resmi" class="profile-img" />
+        <h3 style="margin-top: 1.5rem; font-weight: 600;">@Model.FullName</h3>
+    </div>
+    
+    <div class="profile-right">
+        <h2 class="profile-title">PROFİL BİLGİLERİ</h2>
+        
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="detail-label">KULLANICI ADI</span>
+                <span class="detail-value">@Model.Username</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">E-POSTA</span>
+                <span class="detail-value">@Model.Email</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">BİYOGRAFİ</span>
+                <span class="detail-value">@Model.Bio</span>
+            </div>
+        </div>
+        
+        <div class="profile-actions">
+            <a asp-action="EditProfile" class="profile-btn btn-edit">Profili Düzenle</a>
+            <a asp-action="EditAccount" class="profile-btn btn-account">Hesabı Düzenle</a>
+        </div>
+    </div>
+</div>

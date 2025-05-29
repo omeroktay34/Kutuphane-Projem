@@ -1,0 +1,977 @@
+﻿@inject kutuphane.Models.AppDbContext _context
+@inject IHttpContextAccessor HttpContextAccessor
+@using kutuphane.Models
+@using Microsoft.EntityFrameworkCore
+
+@{
+    ViewData["Title"] = "Anasayfa";
+
+}
+
+
+
+
+
+
+<header class="@ViewBag.Theme" style="font-family:@ViewBag.FontFamily; font-size:@ViewBag.FontSizepx;">
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<nav  style="background-color: #8a5f36; border-bottom: 1px solid #6f4e24; padding: 10px 400px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 400; color: #fff;">
+     
+        <div style="display: flex; gap: 40px; align-items: center;">
+            <div>
+                <i class="fas fa-phone" style="margin-right: 8px; color: #fff;"></i> +90 555 123 4567
+            </div>
+            <div>
+                <i class="fas fa-envelope" style="margin-right: 8px; color: #fff;"></i> info@example.com
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 30px;">
+            <a href="#" target="_blank" style="color: #fff; text-decoration: none; font-size: 20px;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" target="_blank" style="color: #fff; text-decoration: none; font-size: 20px;">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" target="_blank" style="color: #fff; text-decoration: none; font-size: 20px;">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" target="_blank" style="color: #fff; text-decoration: none; font-size: 20px;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+    </div>
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+
+   
+    .dropdown-menu {
+        pointer-events: auto;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg " style="padding-top:0.4rem; padding-bottom:0.4rem; font-family:">
+  <div style="width: calc(100% - 780px); margin: 0 390px; display: flex; align-items: center; justify-content: space-between;">
+
+  
+    <a href="@Url.Action("MainMenu", "Home")" class="d-flex align-items-center" style="gap: 16px; text-decoration: none;">
+      <img src="~/images/logo.png" alt="Logo" style="height:100px; width:auto;" />
+      <div>
+        <div style="font-weight: 500; font-size: 2rem; color: #007bff; line-height: 1.1;">Oktay Kütüphanesi</div>
+        <div style="font-size: 1.1rem; color: rgba(0,0,0,0.65); opacity: 0.85; margin-top: -4px;">Keşfetmeye hazır mısın?</div>
+      </div>
+    </a>
+
+   
+    <form method="get" asp-controller="Home" asp-action="Search" style="display: flex; width: 350px;">
+      <input class="form-control rounded-start" type="search" placeholder="Ara..." aria-label="Search" name="query" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+      <button class="btn rounded-end" type="submit" style="background-color: #8a5f36; color: white; border-top-left-radius: 0; border-bottom-left-radius: 0;">Ara</button>
+    </form>
+
+<div style="display: flex; align-items: flex-start; gap: 50px; padding-right: 16px; margin-top: -20px;">
+  
+    <a href="@Url.Action("Favorite", "Home")" class="icon-hover" style="font-size: 1.9rem; position: relative;">
+        <i class="bi bi-heart icon-default" style="color: #dc3545;"></i>
+        <i class="bi bi-heart-fill icon-hovered" style="color: #dc3545;"></i>
+    </a>
+
+  
+    <a href="@Url.Action("Saved", "Home")" class="icon-hover" style="font-size: 1.9rem; position: relative;">
+        <i class="bi bi-bookmark icon-default" style="color: #0d6efd;"></i>
+        <i class="bi bi-bookmark-fill icon-hovered" style="color: #0d6efd;"></i>
+    </a>
+
+
+<div class="profile-wrapper"style="margin-top: -5px;">
+    <div class="profile-trigger" id="profileTrigger">
+        @inject IHttpContextAccessor HttpContextAccessor
+        @{
+            var userId = HttpContextAccessor.HttpContext.Session.GetInt32("UserId");
+            UserModel currentUser = null;
+            if (userId.HasValue)
+            {
+                currentUser = _context.Kullanicilar.FirstOrDefault(u => u.Id == userId.Value);
+            }
+
+            if (currentUser != null)
+            {
+                <div class="dropdown" id="profileDropdownWrapper">
+                    <a href="#" id="profileDropdown" class="d-flex align-items-center" style="cursor: pointer;">
+                        @if (currentUser.ProfileImage != null && currentUser.ProfileImage.Length > 0)
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(currentUser.ProfileImage)" alt="Profil" class="rounded-circle" style="width:38px; height:38px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <img src="~/images/default-profile.png" alt="Profil" class="rounded-circle" style="width:38px; height:38px;" />
+                        }
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Profile"><i class="fas fa-user me-2"></i>Profilim</a></li>
+                        <li><a   class="dropdown-item" asp-controller="Home" asp-action="Saved"><i class="fas fa-bookmark me-2"></i>Okuma Listem</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Settings"><i class="fas fa-cog me-2"></i>Ayarlar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" asp-controller="Home" asp-action="Logout"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Login" style="font-size: 0.9rem;"><i class="fas fa-sign-in-alt me-1"></i> Giriş</a>
+                <a class="btn btn-primary ms-2" asp-controller="Home" asp-action="Register" style="font-size: 0.9rem;"><i class="fas fa-user-plus me-1"></i> Kayıt Ol</a>
+            }
+        }
+    </div>
+</div>
+
+
+
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileTrigger = document.getElementById('profileTrigger');
+        const profileDropdown = document.getElementById('profileDropdown');
+        
+        if (profileTrigger && profileDropdown) {
+            profileTrigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = this.querySelector('.dropdown');
+                if (dropdown) {
+                    dropdown.classList.toggle('show');
+                }
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                const openDropdown = document.querySelector('.dropdown.show');
+                if (openDropdown) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        });
+    });
+ 
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropdown = document.querySelector('#profileDropdownWrapper');
+
+    if (dropdown) {
+      dropdown.addEventListener('click', function (e) {
+        e.stopPropagation(); 
+        dropdown.querySelector('.dropdown-menu').classList.add('show');
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target)) {
+          dropdown.querySelector('.dropdown-menu').classList.remove('show');
+        }
+      });
+    }
+  });
+</script>
+
+
+
+<style>
+    
+
+    .navbar {
+        
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+
+header{
+    background-color: #f8f9fa;
+}
+    
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        margin: 0 0.25rem;
+    }
+    .navbar-nav .nav-link:not(.dropdown-toggle)::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .navbar-nav .nav-link:hover:not(.dropdown-toggle)::after {
+        width: 70%;
+    }
+    
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-top: 0;
+    }
+    
+    .dropdown-item {
+        color: white;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    
+    .dropdown-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        width: 0;
+        height: 1px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown-item:hover::after {
+        width: 80%;
+    }
+    
+    .btn-outline-light {
+        border-width: 2px;
+        font-weight: 500;
+        overflow: hidden;
+    }
+    
+    .btn-outline-light::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .btn-outline-light:hover::after {
+        width: 70%;
+    }
+    
+    .dropdown-toggle::after {
+        display: none;
+    }
+    
+    /* Mobil menü için */
+    @@media (max-width: 991.98px) {
+        .navbar-nav .nav-link::after,
+        .btn-outline-light::after {
+            display: none;
+        }
+        
+        .dropdown-menu {
+            background-color: transparent;
+            box-shadow: none;
+            border-left: 2px solid rgba(255,255,255,0.1);
+            padding-left: 1rem;
+        }
+        
+        .dropdown-item {
+            padding-left: 0;
+        }
+    }
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-submenu-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    display: none;
+    z-index: 1000;
+}
+
+.dropdown-submenu:hover > .dropdown-submenu-menu {
+    display: block;
+}
+
+.dropdown-submenu:not(:hover) .dropdown-submenu-menu {
+    display: none !important;
+}
+
+@@media (max-width: 767px) {
+    .dropdown-submenu .dropdown-submenu-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding-left: 1rem;
+        display: none;
+    }
+    
+    .dropdown-submenu .dropdown-toggle::after {
+        display: none;
+    }
+}
+
+.dropdown-submenu > .dropdown-item::after {
+    display: inline-block;
+    margin-left: auto;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid transparent;
+    border-right: 0;
+    border-bottom: 0.3em solid transparent;
+    border-left: 0.3em solid;
+}
+
+.dropdown-submenu > .dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+    .profile-wrapper {
+        position: relative;
+        z-index: 1000;
+    }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transform-origin: top right;
+        animation: fadeInScale 0.3s ease-out forwards;
+        opacity: 0;
+        border-radius: 10px;
+        padding: 8px 0;
+        margin-top: 10px;
+    }
+
+    @@keyframes fadeInScale {
+        0% {
+            opacity: 0;
+            transform: scale(0.9) translateY(-10px);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .profile-trigger img {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .profile-trigger:hover img {
+        transform: scale(1.05);
+        border-color: rgba(0, 123, 255, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item {
+        padding: 8px 16px;
+        border-radius: 6px;
+        margin: 2px 8px;
+        transition: all 0.2s ease;
+        font-weight: 500;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+        color: #0d6efd;
+        transform: translateX(5px);
+    }
+
+    .btn-outline-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+
+    .dropdown-divider {
+        opacity: 0.5;
+        margin: 8px 0;
+    }
+
+    .dropdown.show .profile-trigger img {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    }
+    .profile-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 999;
+    min-width: 200px;
+}
+
+.profile-dropdown .dropdown-item {
+    padding: 10px 20px;
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
+
+.profile-dropdown .dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.profile-wrapper.active .profile-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+  .icon-hover i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .icon-hover .icon-hovered {
+    
+    opacity: 0;
+  }
+
+  .icon-hover:hover .icon-hovered {
+    opacity: 1;
+  }
+
+  .icon-hover:hover .icon-default {
+    opacity: 0;
+  }
+
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        border-radius: 4px;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+    
+    /* Dropdown stilleri */
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .dropdown-item {
+        color: white;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.2s ease;
+    }
+    
+    .dropdown-item:hover {
+        background-color: rgba(0,0,0,0.1);
+        padding-left: 2rem;
+    }
+    
+    /* Buton stilleri */
+    .btn-outline-light {
+        border-width: 2px;
+        font-weight: 500;
+    }
+    
+    .btn-outline-light:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+  
+
+  
+</style>
+
+
+    
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #8a5f36;">
+    <div style="margin-left: 370px; margin-right: 380px;" class="container-fluid">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+           
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="@Url.Action("MainMenu", "Home")">
+                        <i class="fas fa-home me-1"></i> Ana Sayfa
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="@Url.Action("Library", "Home")">
+                        <i class="fas fa-book-open me-1"></i> Kütüphane
+                    </a>
+                </li>
+                
+        
+                @await Component.InvokeAsync("Category")
+                
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="@Url.Action("PopularBooks", "Home")">
+                        <i class="fas fa-fire me-1"></i> Popüler Kitaplar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="@Url.Action("About", "Home")">
+                        <i class="fas fa-info-circle me-1"></i> Hakkımızda
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="d-flex">
+                <a class="btn btn-outline-light position-relative" href="@Url.Action("AddBook", "Home")">
+                    <i class="fas fa-plus-circle me-1"></i> Kitap Ekle
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Kütüphane</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/kutuphane.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+<body class="@ViewBag.Theme" style="font-family:@ViewBag.FontFamily; font-size:@ViewBag.FontSizepx;">
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+<footer class="footer mt-5">
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+        <div class="wave" id="wave3"></div>
+        <div class="wave" id="wave4"></div>
+    </div>
+    
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-title">Oktay Kütüphanesi</h3>
+                <p class="footer-slogan">Bilginin ve huzurun buluşma noktası</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Hızlı Erişim</h4>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                        <li><a asp-controller="Home" asp-action="Library">Kitaplar</a></li>
+                        <li><a asp-controller="Home" asp-action="Library">Yazarlar</a></li>
+                        <li><a asp-controller="Home" asp-action="Library">Kategoriler</a></li>
+                    </ul>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Yardım</h4>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="About">Hakkımızda</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact">İletişim</a></li>
+                        <li><a asp-controller="Home" asp-action="Privacy">Gizlilik Politikası</a></li>
+                        <li><a href="@Url.Action("SSS", "Home")">SSS</a></li>
+                    </ul>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Bize Ulaşın</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Kütüphane Sokak, İstanbul</li>
+                        <li><i class="fas fa-phone"></i> (0212) 123 45 67</li>
+                        <li><i class="fas fa-envelope"></i> info@oktaykutuphanesi.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 - Oktay Kütüphanesi - Tüm hakları saklıdır.
+                <span class="separator">|</span>
+                <a asp-controller="Home" asp-action="Privacy">Gizlilik Politikası</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+
+    :root {
+        --primary-color: #8a5f36;
+        --secondary-color: #f9f5f1;
+        --text-color: #333;
+        --light-text: #f9f5f1;
+        --dark-text: #5a4a3a;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    
+    }
+    
+
+    .footer {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        padding: 60px 0 0;
+        position: relative;
+    }
+    
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-brand {
+        flex: 1;
+        min-width: 250px;
+    }
+    
+    .footer-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: var(--secondary-color);
+    }
+    
+    .footer-slogan {
+        font-size: 16px;
+        line-height: 1.6;
+        opacity: 0.9;
+    }
+    
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        flex: 2;
+    }
+    
+    .link-group {
+        min-width: 150px;
+    }
+    
+    .link-group h4 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .link-group h4::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--secondary-color);
+    }
+    
+    .link-group ul {
+        list-style: none;
+    }
+    
+    .link-group li {
+        margin-bottom: 10px;
+    }
+    
+    .link-group a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+        position: relative;
+    }
+    
+    .link-group a:hover {
+        color: #fff;
+        transform: translateX(5px);
+    }
+    
+    .link-group a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #fff;
+        transition: width 0.3s ease;
+    }
+    
+    .link-group a:hover::after {
+        width: 100%;
+    }
+    
+    .contact-info i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+    }
+    
+    .footer-bottom {
+        border-top: 1px solid rgba(249, 245, 241, 0.2);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .social-icons {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(249, 245, 241, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary-color);
+        transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        transform: translateY(-5px);
+    }
+    
+    .copyright {
+        text-align: center;
+        font-size: 14px;
+        opacity: 0.8;
+    }
+    
+    .copyright a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .copyright a:hover {
+        text-decoration: underline;
+    }
+    
+    .separator {
+        margin: 0 10px;
+    }
+    
+
+    .waves {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        overflow: hidden;
+    }
+    
+    .wave {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-repeat: repeat no-repeat;
+        background-position: 0 bottom;
+        transform-origin: center bottom;
+        background-size: 50% 100%;
+    }
+    
+    #wave1 {
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%238a5f36"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%238a5f36"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%238a5f36"/></svg>');
+        animation: wave 8s linear infinite;
+        opacity: 0.8;
+    }
+    
+    #wave2 {
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%238a5f36"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%238a5f36"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%238a5f36"/></svg>');
+        animation: wave 10s linear -2s infinite;
+        opacity: 0.6;
+    }
+    
+    #wave3 {
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%238a5f36"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%238a5f36"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%238a5f36"/></svg>');
+        animation: wave 12s linear -4s infinite;
+        opacity: 0.4;
+    }
+    
+    #wave4 {
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%238a5f36"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%238a5f36"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%238a5f36"/></svg>');
+        animation: wave 14s linear -6s infinite;
+        opacity: 0.2;
+    }
+    
+    q@keyframes wave {
+        0% {
+            transform: translateX(0) translateZ(0) scaleY(1);
+        }
+        50% {
+            transform: translateX(-25%) translateZ(0) scaleY(0.8);
+        }
+        100% {
+            transform: translateX(-50%) translateZ(0) scaleY(1);
+        }
+    }
+    
+    q@media (max-width: 992px) {
+        .footer-content {
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .footer-links {
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .link-group {
+            min-width: 100%;
+        }
+    }
+    
+    q@media (max-width: 576px) {
+        .footer {
+            padding-top: 80px;
+        }
+        
+        .waves {
+            height: 30px;
+        }
+        
+        .footer-title {
+            font-size: 24px;
+        }
+        
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .copyright {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .separator {
+            display: none;
+        }
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

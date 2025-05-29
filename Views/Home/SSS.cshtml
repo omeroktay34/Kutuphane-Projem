@@ -1,0 +1,422 @@
+@{
+    ViewData["Title"] = "Sıkça Sorulan Sorular";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-header bg-library text-white">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-question-circle fa-2x me-3"></i>
+                        <h1 class="mb-0">@ViewData["Title"]</h1>
+                    </div>
+                    <p class="mb-0 mt-2">Kütüphane sistemimizle ilgili en çok merak edilenler</p>
+                </div>
+                
+                <div class="card-body">
+                    <div class="text-center mb-5">
+                        <div class="input-group faq-search">
+                            <span class="input-group-text bg-library text-white"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Sorunuzu yazın..." id="faqSearch">
+                            <button class="btn btn-library" type="button">Ara</button>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion" id="faqAccordion">
+                     
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingMembership">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMembership">
+                                    <i class="fas fa-user-plus text-library me-2"></i> Üyelik İşlemleri
+                                </button>
+                            </h2>
+                            <div id="collapseMembership" class="accordion-collapse collapse" aria-labelledby="headingMembership">
+                                <div class="accordion-body">
+                                    <div class="accordion faq-inner-accordion" id="membershipAccordion">
+                                        <div class="accordion-item">
+                                            <h3 class="accordion-header" id="headingMember1">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMember1">
+                                                    Kütüphaneye nasıl üye olabilirim?
+                                                </button>
+                                            </h3>
+                                            <div id="collapseMember1" class="accordion-collapse collapse" aria-labelledby="headingMember1">
+                                                <div class="accordion-body">
+                                                    <p>Kütüphanemize üye olmak için:</p>
+                                                    <ol>
+                                                        <li><strong>Online kayıt:</strong> Web sitemizdeki üyelik formunu doldurun</li>
+                                                        <li><strong>Şahsen başvuru:</strong> Kütüphane görevlilerine kimliğinizle başvurun</li>
+                                                        <li><strong>Öğrenci üyeliği:</strong> Öğrenci belgenizle ek indirimlerden yararlanın</li>
+                                                    </ol>
+                                                    <p class="mb-0"><i class="fas fa-info-circle text-library me-1"></i> <small>18 yaş altı üyeler için veli onayı gereklidir.</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="accordion-item">
+                                            <h3 class="accordion-header" id="headingMember2">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMember2">
+                                                    Üyelik ücreti ne kadar?
+                                                </button>
+                                            </h3>
+                                            <div id="collapseMember2" class="accordion-collapse collapse" aria-labelledby="headingMember2">
+                                                <div class="accordion-body">
+                                                    <p>Üyelik ücretleri:</p>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <thead class="bg-library text-white">
+                                                                <tr>
+                                                                    <th>Üyelik Türü</th>
+                                                                    <th>Yıllık Ücret</th>
+                                                                    <th>Öğrenci İndirimi</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Bireysel Üyelik</td>
+                                                                    <td>120 TL</td>
+                                                                    <td>60 TL</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Aile Üyeliği (4 kişi)</td>
+                                                                    <td>200 TL</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Akademik Üyelik</td>
+                                                                    <td>80 TL</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <p class="mb-0"><i class="fas fa-percentage text-library me-1"></i> <small>65 yaş üstü ve engelli vatandaşlarımızdan ücret alınmamaktadır.</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                      
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingBorrowing">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBorrowing">
+                                    <i class="fas fa-book-open text-library me-2"></i> Kitap Ödünç Alma
+                                </button>
+                            </h2>
+                            <div id="collapseBorrowing" class="accordion-collapse collapse" aria-labelledby="headingBorrowing">
+                                <div class="accordion-body">
+                                    <div class="accordion faq-inner-accordion" id="borrowingAccordion">
+                                        <div class="accordion-item">
+                                            <h3 class="accordion-header" id="headingBorrow1">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBorrow1">
+                                                    Kaç kitabı aynı anda ödünç alabilirim?
+                                                </button>
+                                            </h3>
+                                            <div id="collapseBorrow1" class="accordion-collapse collapse" aria-labelledby="headingBorrow1">
+                                                <div class="accordion-body">
+                                                    <p>Üyelik türüne göre ödünç alma limitleri:</p>
+                                                    <ul>
+                                                        <li><strong>Standart Üye:</strong> 3 kitap (2 hafta)</li>
+                                                        <li><strong>Öğrenci Üye:</strong> 5 kitap (3 hafta)</li>
+                                                        <li><strong>Akademik Üye:</strong> 8 kitap (4 hafta)</li>
+                                                        <li><strong>Aile Üyeliği:</strong> 10 kitap (2 hafta)</li>
+                                                    </ul>
+                                                    <div class="alert alert-library">
+                                                        <i class="fas fa-exclamation-triangle me-2"></i> Süre uzatma için kitabın rezerve edilmemiş olması ve online talep etmeniz gerekmektedir.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="accordion-item">
+                                            <h3 class="accordion-header" id="headingBorrow2">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBorrow2">
+                                                    Kitapları nasıl uzatabilirim?
+                                                </button>
+                                            </h3>
+                                            <div id="collapseBorrow2" class="accordion-collapse collapse" aria-labelledby="headingBorrow2">
+                                                <div class="accordion-body">
+                                                    <p>Kitap süresi uzatma yöntemleri:</p>
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <div class="card h-100 border-library">
+                                                                <div class="card-body">
+                                                                    <h5><i class="fas fa-laptop text-library me-2"></i> Online Uzatma</h5>
+                                                                    <ol>
+                                                                        <li>Hesabınıza giriş yapın</li>
+                                                                        <li>"Ödünçlerim" bölümüne gidin</li>
+                                                                        <li>Uzatmak istediğiniz kitabı seçin</li>
+                                                                        <li>"Süre Uzat" butonuna tıklayın</li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <div class="card h-100 border-library">
+                                                                <div class="card-body">
+                                                                    <h5><i class="fas fa-phone-alt text-library me-2"></i> Telefonla Uzatma</h5>
+                                                                    <p>0 212 123 45 67 numaralı telefonu arayarak:</p>
+                                                                    <ul>
+                                                                        <li>Üye numaranızı</li>
+                                                                        <li>Kitabın barkod numarasını</li>
+                                                                        <li>Yeni teslim tarihini belirtebilirsiniz</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="mb-0 text-muted"><small>Not: Her kitap için maksimum 2 kez uzatma yapılabilir.</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                     
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFines">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFines">
+                                    <i class="fas fa-exclamation-triangle text-library me-2"></i> Ceza ve İade İşlemleri
+                                </button>
+                            </h2>
+                            <div id="collapseFines" class="accordion-collapse collapse" aria-labelledby="headingFines">
+                                <div class="accordion-body">
+                                    <div class="accordion faq-inner-accordion" id="finesAccordion">
+                                        <div class="accordion-item">
+                                            <h3 class="accordion-header" id="headingFine1">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFine1">
+                                                    Geç iade cezası nasıl hesaplanır?
+                                                </button>
+                                            </h3>
+                                            <div id="collapseFine1" class="accordion-collapse collapse" aria-labelledby="headingFine1">
+                                                <div class="accordion-body">
+                                                    <p>Geç iade cezaları:</p>
+                                                    <ul>
+                                                        <li><strong>İlk 7 gün:</strong> Günlük 1 TL/kitap</li>
+                                                        <li><strong>8-15 gün:</strong> Günlük 2 TL/kitap</li>
+                                                        <li><strong>15+ gün:</strong> Günlük 5 TL/kitap + üyelik dondurma</li>
+                                                    </ul>
+                                                    <div class="alert alert-danger">
+                                                        <i class="fas fa-ban me-2"></i> 30 günden fazla gecikmelerde yasal işlem başlatılır.
+                                                    </div>
+                                                    <p class="mb-0"><i class="fas fa-lightbulb text-library me-1"></i> <small>Cezalarınızı online ödeyebilirsiniz (Kredi/Banka kartı geçerlidir).</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="accordion-item">
+                                            <h3 class="accordion-header" id="headingFine2">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFine2">
+                                                    Hasarlı kitap iade ettiğimde ne olur?
+                                                </button>
+                                            </h3>
+                                            <div id="collapseFine2" class="accordion-collapse collapse" aria-labelledby="headingFine2">
+                                                <div class="accordion-body">
+                                                    <p>Kitap hasar türleri ve uygulamalar:</p>
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead class="bg-library text-white">
+                                                                <tr>
+                                                                    <th>Hasar Türü</th>
+                                                                    <th>İşlem</th>
+                                                                    <th>Ücret</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Hafif yıpranma</td>
+                                                                    <td>Uyarı</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Sayfa kopması/lekeler</td>
+                                                                    <td>Onarım ücreti</td>
+                                                                    <td>Kitap değerinin %20'si</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Ciddi hasar</td>
+                                                                    <td>Kitabın yenilenmesi</td>
+                                                                    <td>Kitap bedeli + işlem ücreti</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kayıp kitap</td>
+                                                                    <td>Yenisinin alınması</td>
+                                                                    <td>Kitap bedeli + %25 idari ücret</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <p class="mb-0"><i class="fas fa-hand-holding-usd text-library me-1"></i> <small>Ödemeler 3 taksitle yapılabilir.</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                  
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOthers">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOthers">
+                                    <i class="fas fa-ellipsis-h text-library me-2"></i> Diğer Sorular
+                                </button>
+                            </h2>
+                            <div id="collapseOthers" class="accordion-collapse collapse" aria-labelledby="headingOthers">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-header bg-library text-white">
+                                                    <i class="fas fa-wifi me-2"></i> Dijital Hizmetler
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5>E-kitaplara nasıl ulaşabilirim?</h5>
+                                                    <p>Üyelerimize özel dijital kütüphanemizden faydalanabilirsiniz:</p>
+                                                    <ol>
+                                                        <li>Üye girişi yapın</li>
+                                                        <li>"Dijital Koleksiyon" bölümüne gidin</li>
+                                                        <li>İstediğiniz e-kitabı seçin</li>
+                                                        <li>PDF veya EPUB formatında indirin</li>
+                                                    </ol>
+                                                    <p class="mb-0"><small>Günlük maksimum 3 e-kitap indirilebilir.</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-header bg-library text-white">
+                                                    <i class="fas fa-calendar-alt me-2"></i> Etkinlikler
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5>Kitap kulübü etkinliklerine nasıl katılırım?</h5>
+                                                    <p>Aylık kitap kulübü etkinliklerimize katılmak için:</p>
+                                                    <ul>
+                                                        <li>Web sitemizdeki etkinlik takvimini inceleyin</li>
+                                                        <li>Katılmak istediğiniz etkinliği seçin</li>
+                                                        <li>"Katıl" butonuna tıklayarak kaydolun</li>
+                                                    </ul>
+                                                    <p class="mb-0"><small>Etkinlikler ücretsizdir, ancak kontenjanla sınırlıdır.</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+              
+                    <div class="text-center mt-5">
+                        <div class="card border-library">
+                            <div class="card-body">
+                                <h4 class="text-library"><i class="fas fa-headset me-2"></i> Canlı Destek</h4>
+                                <p>Yanıt bulamadığınız sorular için destek ekibimizle iletişime geçin</p>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <a href="#" class="btn btn-library">
+                                        <i class="fas fa-comment-dots me-2"></i>Canlı Sohbet
+                                    </a>
+                                    <a href="tel:+902121234567" class="btn btn-outline-library">
+                                        <i class="fas fa-phone-alt me-2"></i>0 212 123 45 67
+                                    </a>
+                                    <a href="mailto:destek@kutuphanemiz.com" class="btn btn-outline-library">
+                                        <i class="fas fa-envelope me-2"></i>E-posta Gönder
+                                    </a>
+                                </div>
+                                <p class="mt-3 mb-0"><small>Hafta içi 09:00-18:00 arası hizmet vermekteyiz.</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-library {
+        background-color: #8a5f36;
+    }
+    
+    .text-library {
+        color: #8a5f36;
+    }
+    
+    .border-library {
+        border-color: #8a5f36 !important;
+    }
+    
+    .btn-library {
+        background-color: #8a5f36;
+        color: white;
+    }
+    
+    .btn-outline-library {
+        border-color: #8a5f36;
+        color: #8a5f36;
+    }
+    
+    .btn-outline-library:hover {
+        background-color: #8a5f36;
+        color: white;
+    }
+    
+    .faq-search {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .faq-inner-accordion .accordion-button {
+        padding-left: 2rem;
+        font-size: 0.95rem;
+    }
+    
+    .accordion-button:not(.collapsed) {
+        background-color: rgba(138, 95, 54, 0.1);
+        color: #5a3d23;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: 0 0 0 0.25rem rgba(138, 95, 54, 0.25);
+    }
+</style>
+
+@section Scripts {
+    <script>
+       
+        document.getElementById('faqSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const questions = document.querySelectorAll('.accordion-button');
+            
+            questions.forEach(question => {
+                const questionText = question.textContent.toLowerCase();
+                const parentItem = question.closest('.accordion-item');
+                
+                if (questionText.includes(searchTerm)) {
+                    parentItem.style.display = 'block';
+                   
+                    const collapseTarget = question.getAttribute('data-bs-target');
+                    const collapseElement = document.querySelector(collapseTarget);
+                    new bootstrap.Collapse(collapseElement, { toggle: true });
+                } else {
+                    parentItem.style.display = 'none';
+                }
+            });
+        });
+    
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if (target && target.classList.contains('accordion-collapse')) {
+                    new bootstrap.Collapse(target, { toggle: true });
+                }
+            }
+        });
+    </script>
+}

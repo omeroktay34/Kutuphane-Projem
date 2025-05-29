@@ -1,0 +1,428 @@
+@model kutuphane.Models.UserModel
+
+
+<body class="@ViewBag.Theme" style="font-family:@ViewBag.FontFamily; font-size:@ViewBag.FontSizepx;">
+<style>
+    :root {
+        --primary-color: #8a5f36; 
+        --secondary-color: #f9f5f1; 
+        --accent-color: #6d4c2e; 
+        --text-color: #333;
+        --light-text: #f9f5f1;
+    }
+
+    body {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+       
+       
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-color);
+        
+        font-weight: 600;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+  
+    .last-read-book {
+        margin: 30px 0;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(139, 95, 54, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        border-left: 5px solid var(--primary-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .last-read-book::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(138,95,54,0.1) 0%, rgba(138,95,54,0) 100%);
+        z-index: 0;
+    }
+
+    .last-read-book:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(139, 95, 54, 0.2);
+    }
+
+    .last-read-book img {
+        height: 180px;
+        width: 120px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+
+    .last-read-book .no-cover {
+        height: 180px;
+        width: 120px;
+        background-color: #f0e6d9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .last-read-book .no-cover i {
+        font-size: 40px;
+        color: var(--primary-color);
+        opacity: 0.5;
+    }
+
+    .last-read-book:hover img {
+        transform: scale(1.05);
+    }
+
+    .last-read-book h4 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--accent-color);
+        color: var(--light-text);
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+     
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+  
+    .alert {
+        padding: 15px;
+        border-radius: 4px;
+        margin: 20px 0;
+        border-left: 5px solid #31708f;
+        background-color: #d9edf7;
+        color: #31708f;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        animation: fadeIn 0.5s ease;
+     
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+  
+    .slider-container {
+        overflow: hidden;
+        width: 100%;
+        padding: 30px 0;
+        position: relative;
+    }
+
+    .slider-container::before, .slider-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .slider-container::before {
+        left: 0;
+        background: linear-gradient(90deg, var(--secondary-color) 0%, rgba(249,245,241,0) 100%);
+    }
+
+    .slider-container::after {
+        right: 0;
+        background: linear-gradient(270deg, var(--secondary-color) 0%, rgba(249,245,241,0) 100%);
+    }
+
+    .slider-track {
+        display: flex;
+        transition: transform 0.5s linear;
+        gap: 25px;
+        padding: 10px 0;
+    }
+
+    .slider-item {
+        flex: 0 0 auto;
+        width: 180px;
+        text-align: center;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .slider-item:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 10px 20px rgba(139, 95, 54, 0.2);
+    }
+
+    .slider-item::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background-color: var(--primary-color);
+    }
+
+    .cover-image {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+    .slider-item:hover .cover-image {
+        transform: scale(1.05);
+    }
+
+    .book-info {
+        padding: 15px;
+        font-size: 14px;
+        background-color: white;
+    }
+
+    .book-info h6 {
+        margin: 0 0 5px 0;
+        color: var(--primary-color);
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .book-info p {
+        margin: 0;
+        color: #666;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+
+    .section-title {
+        position: relative;
+        margin: 40px 0 30px;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+
+ 
+    .dropdown-submenu {
+        position: relative;
+    }
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+        border-radius: 0 6px 6px 6px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+
+    .library-decoration {
+        position: fixed;
+        opacity: 0.1;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .bookshelf-left {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 150px;
+        background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+    }
+
+    .bookshelf-right {
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 150px;
+        background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+    }
+
+    @@media (max-width: 768px) {
+        .last-read-book {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .slider-item {
+            width: 140px;
+        }
+        
+        .cover-image {
+            height: 200px;
+        }
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="library-decoration bookshelf-left"></div>
+<div class="library-decoration bookshelf-right"></div>
+<h1 class="section-title">SON OKUDUĞUNUZ KİTAP</h1>
+@if (ViewBag.LastReadBook != null)
+{
+    <div class="last-read-book">
+        @if (ViewBag.LastReadBook.CoverImage != null)
+        {
+            var imageBase64 = "data:image/jpeg;base64," + Convert.ToBase64String(ViewBag.LastReadBook.CoverImage);
+            <img src="@imageBase64" alt="Kitap Kapağı" />
+        }
+        else
+        {
+            <div class="no-cover">
+                <i class="fas fa-book"></i>
+            </div>
+        }
+        <div>
+            <h4>@ViewBag.LastReadBook.Title</h4>
+            <p>Son okuduğunuz sayfa: @ViewBag.LastReadPageNumber</p>
+            <a asp-controller="Home" asp-action="ReadBook" 
+               asp-route-bookId="@ViewBag.LastReadBook.Id" 
+               asp-route-startPage="@ViewBag.LastReadPageNumber"
+               class="btn btn-primary">
+                Kaldığım Yerden Devam Et
+            </a>
+        </div>
+    </div>
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+
+<h1 class="section-title">EKLENEN SON 10 KİTAP</h1>
+<div class="slider-container" id="slider">
+    <div class="slider-track" id="sliderTrack">
+        @foreach (var book in (List<kutuphane.Models.BookModel>)ViewBag.LatestBooks)
+        {
+            <div class="slider-item" onclick="location.href='@Url.Action("BookDetails", new { Id = book.Id })'">
+                @if (book.CoverImage != null)
+                {
+                    var imageBase64 = "data:image/jpeg;base64," + Convert.ToBase64String(book.CoverImage);
+                    <img src="@imageBase64" class="cover-image" alt="@book.Title" />
+                }
+                else
+                {
+                    <div class="no-cover" style="width:100%; height:260px;" style="color: aqua;">
+                        <i class="fas fa-book" style="font-size:50px; margin-top: 120px;"></i>
+                    </div>
+                }
+                <div class="book-info">
+                    <h6>@book.Title</h6>
+                    <p>@book.Author</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    
+    const sliderTrack = document.getElementById('sliderTrack');
+    let scrollAmount = 0;
+    const items = sliderTrack.innerHTML;
+    
+  
+    sliderTrack.innerHTML = items + items + items;
+    
+    function slide() {
+        scrollAmount += 0.5;
+        
+        const maxScroll = sliderTrack.scrollWidth / 3;
+        
+        if (scrollAmount >= maxScroll) {
+            scrollAmount = 0;
+        }
+        
+        sliderTrack.style.transform = `translateX(-${scrollAmount}px)`;
+        requestAnimationFrame(slide);
+    }
+    
+   
+    slide();
+    
+   
+    document.querySelectorAll('.dropdown-menu a.dropdown-toggle').forEach(function(element) {
+        element.addEventListener('click', function (e) {
+            if (!this.nextElementSibling.classList.contains('show')) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                let parentMenu = this.closest('.dropdown-menu');
+                parentMenu.querySelectorAll('.show').forEach(function(openMenu){
+                    openMenu.classList.remove('show');
+                });
+                
+                this.nextElementSibling.classList.add('show');
+            } else {
+                this.nextElementSibling.classList.remove('show');
+            }
+        });
+    });
+  
+    document.querySelectorAll('.slider-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.zIndex = '10';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.zIndex = '1';
+        });
+    });
+</script>
+</body>

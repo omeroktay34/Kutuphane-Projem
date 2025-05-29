@@ -1,0 +1,63 @@
+@model kutuphane.Models.UserModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Ayarları";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<form asp-action="Settings" method="post">
+    <div class="form-group">
+        <label for="Theme">Tema Seçimi</label>
+        <select asp-for="Theme" class="form-control" id="Theme">
+            <option value="light" selected="@(Model.Theme == "light")">Açık Tema</option>
+            <option value="dark" selected="@(Model.Theme == "dark")">Koyu Tema</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="Language">Dil Seçimi</label>
+        <select asp-for="Language" class="form-control" id="Language">
+            <option value="tr" selected="@(Model.Language == "tr")">Türkçe</option>
+            <option value="en" selected="@(Model.Language == "en")">English</option>
+        </select>
+    </div>
+<div class="form-group mt-3">
+    <label for="FontFamily">Yazı Tipi</label>
+    <select asp-for="FontFamily" class="form-control" id="FontFamily">
+<option value="Poppins" selected="@(Model.FontFamily == "Poppins")">Poppins</option>
+<option value="Times New Roman" selected="@(Model.FontFamily == "Times New Roman")">Times New Roman</option>
+<option value="Verdana" selected="@(Model.FontFamily == "Verdana")">Verdana</option>
+<option value="Courier New" selected="@(Model.FontFamily == "Courier New")">Courier New</option>
+<option value="Arial" selected="@(Model.FontFamily == "Arial")">Arial</option>
+<option value="Helvetica" selected="@(Model.FontFamily == "Helvetica")">Helvetica</option>
+<option value="Georgia" selected="@(Model.FontFamily == "Georgia")">Georgia</option>
+<option value="Trebuchet MS" selected="@(Model.FontFamily == "Trebuchet MS")">Trebuchet MS</option>
+<option value="Comic Sans MS" selected="@(Model.FontFamily == "Comic Sans MS")">Comic Sans MS</option>
+<option value="Lucida Console" selected="@(Model.FontFamily == "Lucida Console")">Lucida Console</option>
+<option value="Tahoma" selected="@(Model.FontFamily == "Tahoma")">Tahoma</option>
+<option value="Impact" selected="@(Model.FontFamily == "Impact")">Impact</option>
+<option value="Segoe UI" selected="@(Model.FontFamily == "Segoe UI")">Segoe UI</option>
+<option value="Garamond" selected="@(Model.FontFamily == "Garamond")">Garamond</option>
+<option value="Palatino Linotype" selected="@(Model.FontFamily == "Palatino Linotype")">Palatino Linotype</option>
+<option value="Franklin Gothic Medium" selected="@(Model.FontFamily == "Franklin Gothic Medium")">Franklin Gothic Medium</option>
+<option value="Candara" selected="@(Model.FontFamily == "Candara")">Candara</option>
+<option value="Calibri" selected="@(Model.FontFamily == "Calibri")">Calibri</option>
+<option value="Rockwell" selected="@(Model.FontFamily == "Rockwell")">Rockwell</option>
+<option value="Century Gothic" selected="@(Model.FontFamily == "Century Gothic")">Century Gothic</option>
+
+    </select>
+</div>
+
+<div class="form-group mt-3">
+    <label for="FontSize">Yazı Boyutu (px)</label>
+    <input type="number" asp-for="FontSize" class="form-control" id="FontSize" min="12" max="120" />
+</div>
+
+    <button type="submit" class="btn btn-primary mt-3">Kaydet</button>
+</form>

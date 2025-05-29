@@ -1,0 +1,482 @@
+@model List<kutuphane.Models.BookModel>
+
+<div class="library-container">
+    <div class="library-header">
+        <h1 class="library-title">Kütüphane</h1>
+        <p class="library-subtitle">Kitaplarınızı keşfedin</p>
+        <div class="header-decoration">
+            <div class="decoration-line"></div>
+            <div class="decoration-icon">📖</div>
+            <div class="decoration-line"></div>
+        </div>
+    </div>
+
+    <div class="books-grid" style="text-align: center;">
+        @foreach (var kitap in Model)
+        {
+            <div class="book-card" onclick="window.location.href='@Url.Action("ReadBook", "Home", new { bookId = kitap.Id, startPage = 1 })'">
+                <div class="book-cover">
+                    @if (kitap.CoverImage != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(kitap.CoverImage)" alt="@kitap.Title" />
+                    }
+                    else
+                    {
+                        <div class="no-cover">
+                            <span class="fas fa-book book-icon"></span>
+                            <div class="cover-pattern"></div>
+                        </div>
+                    }
+                    <div class="read-overlay">
+                        <span class="read-text">Oku</span>
+                        <div class="corner-fold"></div>
+                    </div>
+                </div>
+                
+                <div class="book-details">
+                    <h3 class="book-title">@kitap.Title</h3>
+                    <p class="book-author" style="color: #666;">@kitap.Author</p>
+                    @if (kitap.Category != null)
+                    {
+                        <span class="book-category">@kitap.Category.Name</span>
+                    }
+                </div>
+
+                <div class="book-actions">
+                    <a href="@Url.Action("BookDetails", "Home", new { id = kitap.Id })" 
+                       class="action-link" 
+                       onclick="event.stopPropagation();">
+                       
+                        <span class="action-text">Detaylar</span>
+                    </a>
+                    <a href="@Url.Action("AddBookPage", "Home", new { bookId = kitap.Id })" 
+   class="action-link secondary" 
+   onclick="event.stopPropagation();">
+   
+    <span class="action-text">Sayfa Ekle</span>
+</a>
+
+
+                    
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #8a5f36;
+        --primary-light: #a67c52;
+        --primary-dark: #6d4a2a;
+        --secondary-color: #f5f0eb;
+        --text-dark: #333;
+        --text-medium: #666;
+        --text-light: #999;
+        --shadow-sm: 0 2px 20px rgba(0,0,0,0.08);
+        --shadow-md: 0 12px 40px rgba(138, 95, 54, 0.15);
+        --shadow-lg: 0 20px 50px rgba(138, 95, 54, 0.2);
+        --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+     
+        background-color: #f9f5f1;
+        margin: 0;
+        color: var(--text-dark);
+    }
+
+    .library-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 60px 30px;
+        min-height: 100vh;
+    }
+
+    .library-header {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+    }
+
+    .library-title {
+        font-size: 3.2rem;
+        font-weight: 300;
+        color: var(--primary-dark);
+        margin: 0;
+        letter-spacing: -1px;
+      
+        position: relative;
+        display: inline-block;
+    }
+
+    .library-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+        border-radius: 3px;
+    }
+
+    .library-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-medium);
+        margin: 15px 0 0 0;
+        font-weight: 300;
+    }
+
+    .header-decoration {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .decoration-line {
+        width: 100px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        margin: 0 15px;
+    }
+
+    .decoration-icon {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        opacity: 0.7;
+    }
+
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 35px;
+    }
+
+    .book-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        cursor: pointer;
+        border: 1px solid rgba(138, 95, 54, 0.1);
+        position: relative;
+    }
+
+    .book-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .book-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(86, 54, 138, 0.2);
+    }
+
+    .book-card:hover::before {
+        opacity: 1;
+    }
+
+    .book-cover {
+        position: relative;
+        width: 100%;
+        height: 280px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f8f6f2, #ede8dc);
+    }
+
+    .book-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .book-card:hover .book-cover img {
+        transform: scale(1.08);
+    }
+
+    .no-cover {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        position: relative;
+    }
+
+    .cover-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%),
+            linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+    }
+
+    .book-icon {
+        font-size: 3.5rem;
+        color: white;
+        opacity: 0.8;
+        position: relative;
+        z-index: 1;
+    }
+
+    .read-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(138, 95, 54, 0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .book-card:hover .read-overlay {
+        opacity: 1;
+    }
+
+    .read-text {
+        color: white;
+        font-size: 1.4rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .corner-fold {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 40px 40px 0;
+        border-color: transparent rgba(0,0,0,0.1) transparent transparent;
+    }
+
+    .book-details {
+        padding: 24px 20px 16px;
+        position: relative;
+    }
+
+    .book-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin: 0 0 10px 0;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.3s ease;
+    }
+
+    .book-card:hover .book-title {
+        color: var(--primary-dark);
+    }
+
+    .book-author {
+       
+        font-size: 1rem;
+        color: var(--text-medium);
+        margin: 0 0 15px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .book-author::before {
+        
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    .book-category {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+    }
+
+    .book-card:hover .book-category {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    .book-actions {
+        padding: 0 20px 20px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .action-link {
+        flex: 1;
+        text-align: center;
+        padding: 12px 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: var(--transition);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .action-link:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(138, 95, 54, 0.3);
+    }
+
+    .action-link.secondary {
+        border-color: #e0e0e0;
+        color: var(--text-medium);
+        background: white;
+    }
+
+    .action-link.secondary:hover {
+        background: #f5f5f5;
+        color: var(--text-dark);
+        border-color: #ccc;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-icon {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .action-link:hover .action-icon {
+        transform: scale(1.2);
+    }
+
+    .action-text {
+        transition: transform 0.3s ease;
+    }
+
+    .action-link:hover .action-text {
+        transform: translateX(2px);
+    }
+
+    /* Loading Animation */
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .book-card {
+        animation: fadeIn 0.6s ease forwards;
+        opacity: 0;
+    }
+
+    .book-card:nth-child(1) { animation-delay: 0.1s; }
+    .book-card:nth-child(2) { animation-delay: 0.2s; }
+    .book-card:nth-child(3) { animation-delay: 0.3s; }
+    .book-card:nth-child(4) { animation-delay: 0.4s; }
+    .book-card:nth-child(5) { animation-delay: 0.5s; }
+    .book-card:nth-child(6) { animation-delay: 0.6s; }
+    .book-card:nth-child(7) { animation-delay: 0.7s; }
+    .book-card:nth-child(8) { animation-delay: 0.8s; }
+
+    /* Responsive Design */
+    @@media (max-width: 1024px) {
+        .books-grid {
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        
+        .book-cover {
+            height: 250px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .library-container {
+            padding: 40px 20px;
+        }
+        
+        .library-title {
+            font-size: 2.5rem;
+        }
+        
+        .library-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .books-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
+        
+        .book-cover {
+            height: 220px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .library-header {
+            margin-bottom: 40px;
+        }
+        
+        .library-title {
+            font-size: 2rem;
+        }
+        
+        .books-grid {
+            grid-template-columns: 1fr;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .book-actions {
+            flex-direction: column;
+        }
+        
+        .action-link {
+            flex: none;
+        }
+    }
+</style>
