@@ -64,13 +64,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\kutuphane.swj8q8vnob.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-NL97v/PHrWT8pxrxC2d/wyyzua6lbAUtl1sIGMK4lro="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"65"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022NL97v/PHrWT8pxrxC2d/wyyzua6lbAUtl1sIGMK4lro=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 16:16:47 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"65"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022NL97v/PHrWT8pxrxC2d/wyyzua6lbAUtl1sIGMK4lro=\u0022"},{"Name":"Last-Modified","Value":"Sat, 07 Jun 2025 18:15:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/kutuphane/kutuphane.swj8q8vnob.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\kutuphane.swj8q8vnob.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"swj8q8vnob"},{"Name":"integrity","Value":"sha256-NL97v/PHrWT8pxrxC2d/wyyzua6lbAUtl1sIGMK4lro="},{"Name":"label","Value":"_content/kutuphane/kutuphane.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"65"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022NL97v/PHrWT8pxrxC2d/wyyzua6lbAUtl1sIGMK4lro=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 16:16:47 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"65"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022NL97v/PHrWT8pxrxC2d/wyyzua6lbAUtl1sIGMK4lro=\u0022"},{"Name":"Last-Modified","Value":"Sat, 07 Jun 2025 18:15:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/kutuphane/lang/eng.4m6taj1mit.json">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lang\eng.json'))</AssetFile>

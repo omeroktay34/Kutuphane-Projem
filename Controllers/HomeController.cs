@@ -269,34 +269,38 @@ public async Task<IActionResult> Login(string username, string password, bool re
     }
 
 
-    [HttpPost]
-    public async Task<IActionResult> Register(string username, string email, string password)
+ [HttpPost]
+public async Task<IActionResult> Register(string username, string email, string password)
+{
+    if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
     {
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
-        {
-            ModelState.AddModelError("", "Tüm alanlar zorunludur.");
-            return View();
-        }
-
-        var userExists = await _context.Kullanicilar.AnyAsync(u => u.Email == email);
-        if (userExists)
-        {
-            ModelState.AddModelError("", "Bu email zaten kayıtlı.");
-            return View();
-        }
-
-        var user = new UserModel
-        {
-            Username = username,
-            Email = email,
-            Password = password
-        };
-
-        _context.Kullanicilar.Add(user);
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction("Index");
+        ModelState.AddModelError("", "Tüm alanlar zorunludur.");
+        return View();
     }
+
+    var userExists = await _context.Kullanicilar.AnyAsync(u => u.Email == email);
+    if (userExists)
+    {
+        ModelState.AddModelError("", "Bu email zaten kayıtlı.");
+        return View();
+    }
+
+    
+    var hashedPassword = HashPassword(password);
+
+    var user = new UserModel
+    {
+        Username = username,
+        Email = email,
+        Password = hashedPassword
+    };
+
+    _context.Kullanicilar.Add(user);
+    await _context.SaveChangesAsync();
+
+    return RedirectToAction("Index");
+}
+
 
     public IActionResult Index()
     {

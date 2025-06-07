@@ -389,7 +389,26 @@
 
 @section Scripts {
     <script>
-       
+   
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', function() {
+               
+                const targetCollapse = document.querySelector(this.getAttribute('data-bs-target'));
+                
+            
+                if (!this.classList.contains('collapsed')) {
+                  
+                    const bsCollapse = bootstrap.Collapse.getInstance(targetCollapse) || new bootstrap.Collapse(targetCollapse);
+                    bsCollapse.hide();
+                    
+                   
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            });
+        });
+
+      
         document.getElementById('faqSearch').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const questions = document.querySelectorAll('.accordion-button');
@@ -400,7 +419,6 @@
                 
                 if (questionText.includes(searchTerm)) {
                     parentItem.style.display = 'block';
-                   
                     const collapseTarget = question.getAttribute('data-bs-target');
                     const collapseElement = document.querySelector(collapseTarget);
                     new bootstrap.Collapse(collapseElement, { toggle: true });
@@ -410,13 +428,20 @@
             });
         });
     
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.location.hash) {
-                const target = document.querySelector(window.location.hash);
-                if (target && target.classList.contains('accordion-collapse')) {
-                    new bootstrap.Collapse(target, { toggle: true });
+     
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetCollapse = document.querySelector(this.getAttribute('data-bs-target'));
+                const bsCollapse = bootstrap.Collapse.getInstance(targetCollapse) || new bootstrap.Collapse(targetCollapse);
+                
+               
+                if (targetCollapse.classList.contains('show')) {
+                    bsCollapse.hide();
+                    event.stopPropagation();
+                    event.preventDefault();
                 }
-            }
+            });
         });
+
     </script>
 }
